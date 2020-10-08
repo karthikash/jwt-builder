@@ -11,7 +11,10 @@ const constants = {
 
     },
     'prod': {
-
+        ENV: process.env.ENV,
+        HOST: process.env.HOST,
+        PORT: process.env.PORT,
+        API_VERSION: process.env.API_VERSION
     }
 }
 
