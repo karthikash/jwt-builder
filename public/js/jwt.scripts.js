@@ -18,7 +18,7 @@ generateForm.addEventListener('submit', (e) => {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: `http://${constants.HOST}/api/v1/jwt/sign`,
+        url: `https://${constants.HOST}/api/v1/jwt/sign`,
         data: data,
         success: (data) => {
             $('#tokenTextArea').html(data.token);
@@ -37,7 +37,7 @@ verifyForm.addEventListener('submit', (e) => {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: `http://${constants.HOST}:${constants.PORT}/api/v1/jwt/verify`,
+        url: `https://${constants.HOST}/api/v1/jwt/verify`,
         data: data,
         success: (data) => {
             document.getElementById("payload").textContent = JSON.stringify(data.decoded, undefined, 2);
