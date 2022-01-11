@@ -1,6 +1,6 @@
-import { JwtSignValidator, JwtVerifyValidator } from "./jwt.validator";
+const { JwtSignValidator, JwtVerifyValidator } = require('./jwt.validator');
 
-export const validate = (schema = null) => (req, res, next) => {
+const validate = (schema = null) => (req, res, next) => {
 
     switch (schema) {
         case 'sign': var Validator = JwtSignValidator; break;
@@ -21,4 +21,8 @@ export const validate = (schema = null) => (req, res, next) => {
         if (!validation.error) return next();
         return res.status(400).json({ status: 400, error: validation });
     }
+};
+
+module.exports = {
+    validate
 };

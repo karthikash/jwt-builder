@@ -1,6 +1,6 @@
-import { JwtService } from '../services';
+const { JwtService } = require('../services');
 
-export const fnSignJwtToken = (req, res) => {
+const fnSignJwtToken = (req, res) => {
     try {
         const jwt = new JwtService(req.body);
         const token = jwt.sign();
@@ -11,7 +11,7 @@ export const fnSignJwtToken = (req, res) => {
     }
 }
 
-export const fnVerifyJwtToken = (req, res) => {
+const fnVerifyJwtToken = (req, res) => {
     try {
         const jwt = new JwtService(req.body);
         const decoded = jwt.verify();
@@ -20,4 +20,9 @@ export const fnVerifyJwtToken = (req, res) => {
         logger.error(error);
         return res.status(500).json({ status: 500, message: error.name, message: error.message });
     }
+}
+
+module.exports = {
+    fnSignJwtToken,
+    fnVerifyJwtToken
 }

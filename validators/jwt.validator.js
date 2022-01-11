@@ -1,6 +1,6 @@
-import Joi from "joi";
+const Joi = require('joi');
 
-export const JwtSignValidator = Joi.object().keys({
+const JwtSignValidator = Joi.object().keys({
     payload: Joi.object().required(),
     secretKey: Joi.string().required(),
     options: Joi.object().keys({
@@ -9,7 +9,12 @@ export const JwtSignValidator = Joi.object().keys({
     })
 });
 
-export const JwtVerifyValidator = Joi.object().keys({
+const JwtVerifyValidator = Joi.object().keys({
     token: Joi.string().required(),
     secretKey: Joi.string().required()
 });
+
+module.exports = {
+    JwtSignValidator,
+    JwtVerifyValidator
+}

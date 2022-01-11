@@ -1,1 +1,5 @@
-export * from './jwt.service';
+const JwtService = require('./jwt.service');
+
+module.exports = {
+    JwtService
+}

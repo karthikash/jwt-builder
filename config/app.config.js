@@ -1,14 +1,13 @@
-import hbs from 'hbs';
-import cors from 'cors';
-import path from 'path';
-import morgan from 'morgan';
-import express from 'express';
-import { json, urlencoded } from 'body-parser';
-
-import ApiRouter from '../routes/api';
-import ClientRouter from '../routes/client';
-import logger from './logger.config';
-import constants from './constants.config';
+const hbs = require('hbs');
+const cors = require('cors');
+const path = require('path');
+const morgan = require('morgan');
+const express = require('express');
+const { json, urlencoded } = require('body-parser');
+const ApiRouter = require('../routes/api');
+const ClientRouter = require('../routes/client');
+const logger = require('./logger.config');
+const constants = require('./constants.config');
 
 global.logger = logger;
 global.constants = constants;
@@ -52,4 +51,4 @@ app.use(ClientRouter);
 app.use(`/api/${constants.API_VERSION}`, ApiRouter);
 app.use('*', (req, res) => { res.render('404', { title: 404, errorMessage: 'Page not found' }) });
 
-export default app;
+module.exports = app;

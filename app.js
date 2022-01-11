@@ -1,6 +1,5 @@
-import http from 'http';
-
-import app from './config/app.config';
+const http = require('http');
+const app = require('./config/app.config');
 
 const server = http.createServer(app);
 

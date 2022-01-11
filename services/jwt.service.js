@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export class JwtService {
+class JwtService {
     constructor({ payload, secretKey, options, token }) {
         this.payload = payload;
         this.secretKey = secretKey;
@@ -18,3 +18,5 @@ export class JwtService {
         return decoded;
     }
 }
+
+module.exports = JwtService;

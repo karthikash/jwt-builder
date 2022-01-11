@@ -1,4 +1,4 @@
-import 'dotenv/config';
+require('dotenv/config');
 
 const constants = {
     'dev': {
@@ -18,4 +18,4 @@ const constants = {
     }
 }
 
-export default constants[process.env.ENV];
+module.exports = constants[process.env.ENV];

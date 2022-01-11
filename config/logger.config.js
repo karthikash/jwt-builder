@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import { createLogger, format, transports } from 'winston';
+require('dotenv/config');
+const { createLogger, format, transports } = require('winston');
 
 const { combine, timestamp, label, printf } = format;
 
@@ -45,4 +45,4 @@ const logger = createLogger({
     )
 });
 
-export default logger;
+module.exports = logger;
