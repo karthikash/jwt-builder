@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const decode = require('jwt-decode');
 
 class JwtService {
     constructor({ payload, secretKey, options, token }) {
@@ -14,8 +15,9 @@ class JwtService {
     }
 
     verify() {
-        const decoded = jwt.verify(this.token, this.secretKey);
-        return decoded;
+        const payload = jwt.verify(this.token, this.secretKey);
+        const header = decode(this.token, { header: true })
+        return { payload, header };
     }
 }
 

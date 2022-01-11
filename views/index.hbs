@@ -9,40 +9,51 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-xs-6">
                 <form id="generate-form">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <h4>Encoding</h4>
                     </div>
                     <div class="appendInput">
                         <div class="row">
-                            <label class="form-group col-md-12" for="key">Payload</label>
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <label for="secretKey">Header</label>
+                                <select class="form-control" type="text" id="algorithm">
+                                    <option selected>Algorithm</option>
+                                    <option value="HS256">HS256</option>
+                                    <option value="HS384">HS384</option>
+                                    <option value="HS512">HS512</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="form-group col-md-12 col-sm-12 col-xs-12" for="key">Payload</label>
+                            <div class="form-group col-md-5 col-sm-5 col-xs-5">
                                 <input class="form-control" type="text" id="key[]" required>
-                                <small>key</small>
+                                <small><i>key</i></small>
                             </div>
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-5 col-sm-5 col-xs-5">
                                 <input class="form-control" type="text" id="value[]" required>
-                                <small>value</small>
+                                <small><i>value</i></small>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-2 col-sm-2 col-xs-2">
                                 <a class="btn btn-success form-control addInput">+</a>
-                                <small>add</small>
+                                <small><i>add</i></small>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
                             <label for="secretKey">Secret Key</label>
                             <input class="form-control" type="text" id="secretKey" required>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
                             <label for="expiry">Expiration Time</label>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
                                     <input class="form-control" type="number" min="1" id="expiryTime" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
                                     <select class="form-control" type="date" id="expiryUnit" required>
                                         <option selected>Unit</option>
                                         <option value="m">Minute(s)</option>
@@ -55,44 +66,39 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                             <label for="tokenTextArea">Token</label>
                             <textarea class="form-control" rows="5" id="tokenTextArea" disabled></textarea>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <button class="btn btn-dark form-control" id="generate">Generate</button>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-dark form-control" id="generate" type="submit">Generate</button>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-xs-6">
                 <form id="verify-form">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <h4>Decoding</h4>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                             <label for="encodedToken">Token</label>
                             <textarea class="form-control" rows="6" id="encodedToken" required></textarea>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                             <label for="encodedSecretKey">Secret Key</label>
                             <input class="form-control" type="text" id="encodedSecretKey" required>
                         </div>
                     </div>
+                    <div class="form-row" id="res-verify"> </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="payload">Payload</label>
-                            <pre id="payload"></pre>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <button class="btn btn-dark form-control" id="verify">Verify</button>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-dark form-control" id="verify" type="submit">Verify</button>
                         </div>
                     </div>
                 </form>

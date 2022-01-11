@@ -1,5 +1,9 @@
 const constants = JSON.parse($('#constants').val());
 
+const successHTML = '<div class="form-group col-md-6 col-sm-6 col-xs-6"> <label for="payload">Payload</label> <pre id="payload"></pre></div><div class="form-group col-md-6 col-sm-6 col-xs-6"> <label for="header">Header</label> <pre id="header"></pre></div>';
+const errorHTML = '<div class="form-group col-md-12 col-sm-12 col-xs-12"> <label for="error">Error</label> <pre id="error"></pre></div>';
+const inputHTML = '<div class="row"> <div class="col-md-5 col-sm-5 col-xs-5"> <div class="form-group"> <input type="text" id="key[]" class="form-control"/> <small><i>key</i></small> </div></div><div class="col-md-5 col-sm-5 col-xs-5"> <div class="form-group"> <input type="text" id="value[]" class="form-control"/> <small><i>value</i></small> </div></div><div class="col-md-2 col-sm-2 col-xs-2"> <a href="javascript:void(0);" class="removeInput form-control btn btn-danger">-</a> <small><i>remove</i></small> </div></div>';
+
 const generateForm = document.querySelector('#generate-form');
 generateForm.addEventListener('submit', (e) => {
     var payload = {};
@@ -13,15 +17,20 @@ generateForm.addEventListener('submit', (e) => {
     let secretKey = generateForm.elements['secretKey'].value;
     let expiryTime = generateForm.elements['expiryTime'].value;
     let expiryUnit = generateForm.elements['expiryUnit'].value;
-    let options = { expiresIn: `${expiryTime}${expiryUnit}` };
+    let algorithm = generateForm.elements['algorithm'].value;
+    let options = {
+        algorithm: algorithm,
+        expiresIn: `${expiryTime}${expiryUnit}`
+    };
     let data = { payload: payload, secretKey: secretKey, options }
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: `https://${constants.HOST}/api/v1/jwt/sign`,
+        url: `http://${constants.HOST}/api/v1/jwt/sign`,
         data: data,
         success: (data) => {
             $('#tokenTextArea').html(data.token);
+            document.getElementById('generate-form').reset();
         },
         error: (error) => {
             console.log('Error: ', { message: error.name, message: error.message });
@@ -37,13 +46,18 @@ verifyForm.addEventListener('submit', (e) => {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: `https://${constants.HOST}/api/v1/jwt/verify`,
+        url: `http://${constants.HOST}/api/v1/jwt/verify`,
         data: data,
         success: (data) => {
-            document.getElementById("payload").textContent = JSON.stringify(data.decoded, undefined, 2);
+            $('#res-verify').html(successHTML);
+            document.getElementById("payload").textContent = JSON.stringify(data.decoded.payload, undefined, 2);
+            document.getElementById("header").textContent = JSON.stringify(data.decoded.header, undefined, 2);
+            document.getElementById('verify-form').reset();
         },
         error: (error) => {
-            console.log('Error: ', { message: error.name, message: error.message });
+            $('#res-verify').html(errorHTML);
+            document.getElementById("error").textContent = JSON.stringify(error.responseJSON, undefined, 2);
+            document.getElementById('verify-form').reset();
         }
     });
 });
@@ -53,8 +67,7 @@ $(document).ready(function () {
     $('.addInput').click(function () {
         if (count < max) {
             count++;
-            var HTML = '<div class="row"><div class="col-md-5"><div class="form-group"><input type="text" id="key[]" class="form-control"/></div></div><div class="col-md-5"><div class="form-group"><input type="text" id="value[]" class="form-control"/></div></div><div class="col-md-2"><a href="javascript:void(0);" class="removeInput form-control btn btn-danger">-</a></div></div>';
-            $('.appendInput').append(HTML);
+            $('.appendInput').append(inputHTML);
         }
     });
 

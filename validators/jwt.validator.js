@@ -5,7 +5,8 @@ const JwtSignValidator = Joi.object().keys({
     secretKey: Joi.string().required(),
     options: Joi.object().keys({
         expiresIn: Joi.string().required(),
-        encoding: Joi.string().allow('')
+        encoding: Joi.string().allow(''),
+        algorithm: Joi.string().required()
     })
 });
 

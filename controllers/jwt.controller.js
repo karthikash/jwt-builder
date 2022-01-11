@@ -7,7 +7,7 @@ const fnSignJwtToken = (req, res) => {
         return res.status(200).json({ status: 200, token });
     } catch (error) {
         logger.error(error);
-        return res.status(500).json({ status: 500, message: error.name, message: error.message });
+        return res.status(401).json({ status: 401, name: error.name, message: error.message });
     }
 }
 
@@ -18,7 +18,7 @@ const fnVerifyJwtToken = (req, res) => {
         return res.status(200).json({ status: 200, decoded });
     } catch (error) {
         logger.error(error);
-        return res.status(500).json({ status: 500, message: error.name, message: error.message });
+        return res.status(401).json({ status: 401, name: error.name, message: error.message });
     }
 }
 
