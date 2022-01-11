@@ -18,7 +18,7 @@ generateForm.addEventListener('submit', (e) => {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: `http://${constants.HOST}:${constants.PORT}/api/v1/jwt/sign`,
+        url: `http://${constants.HOST}/api/v1/jwt/sign`,
         data: data,
         success: (data) => {
             $('#tokenTextArea').html(data.token);
