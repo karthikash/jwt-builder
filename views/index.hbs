@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
-                <form id="generate-form">
+                <form id="generate-form" autocomplete="off">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <h4>Encoding</h4>
                     </div>
@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <label for="secretKey">Header</label>
-                                <select class="form-control" type="text" id="algorithm">
+                                <select class="form-control" type="text" id="algorithm" required>
                                     <option selected>Algorithm</option>
                                     <option value="HS256">HS256</option>
                                     <option value="HS384">HS384</option>
@@ -29,7 +29,7 @@
                         <div class="row">
                             <label class="form-group col-md-12 col-sm-12 col-xs-12" for="key">Payload</label>
                             <div class="form-group col-md-5 col-sm-5 col-xs-5">
-                                <input class="form-control" type="text" id="key[]" required>
+                                <input class="form-control" type="text" id="key[]" required autocomplete="">
                                 <small><i>key</i></small>
                             </div>
                             <div class="form-group col-md-5 col-sm-5 col-xs-5">
