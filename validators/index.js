@@ -1,28 +1,33 @@
-const { JwtSignValidator, JwtVerifyValidator } = require('./jwt.validator');
+const { JwtSignValidator, JwtVerifyValidator } = require("./jwt.validator");
 
-const validate = (schema = null) => (req, res, next) => {
-
+const validate =
+  (schema = null) =>
+  (req, res, next) => {
     switch (schema) {
-        case 'sign': var Validator = JwtSignValidator; break;
-        case 'verify': var Validator = JwtVerifyValidator; break;
+      case "sign":
+        var Validator = JwtSignValidator;
+        break;
+      case "verify":
+        var Validator = JwtVerifyValidator;
+        break;
     }
 
     if (!Validator) {
-        return next(new Error('Schema flag is not defined in validation'));
+      return next(new Error("Schema flag is not defined in validation"));
     } else {
-        var body = req.body;
-        var query = req.query;
-        var params = req.params;
-        var data = Object.assign({}, body, query, params);
-        if (typeof data == 'string') {
-            data = JSON.parse(data);
-        }
-        var validation = Validator.validate(data);
-        if (!validation.error) return next();
-        return res.status(400).json({ status: 400, error: validation });
+      var body = req.body;
+      var query = req.query;
+      var params = req.params;
+      var data = Object.assign({}, body, query, params);
+      if (typeof data == "string") {
+        data = JSON.parse(data);
+      }
+      var validation = Validator.validate(data);
+      if (!validation.error) return next();
+      return res.status(400).json({ status: 400, error: validation });
     }
-};
+  };
 
 module.exports = {
-    validate
+  validate,
 };

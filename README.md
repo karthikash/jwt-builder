@@ -1,7 +1,6 @@
 # jwt-builder
+
 Encode or Decode JWTs. Paste a JWT and decode its payload or provide payload information to generate a JWT.
-
-
 
 ### Installation & Quick Start
 
@@ -13,7 +12,9 @@ Encode or Decode JWTs. Paste a JWT and decode its payload or provide payload inf
 $ cd jwt-builder
 $ npm install
 ```
+
 Create an .env file to add the ENV variables.
+
 ##### environments
 
 ```sh
@@ -23,4 +24,5 @@ $ PORT = 3000
 $ API_VERSION = v1
 $ npm start
 ```
+
 #### Open http://localhost:3000 on your browser

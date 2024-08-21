@@ -1,113 +1,146 @@
-<!DOCTYPE html>
 <html lang="en">
-
-{{> header}}
-
-<body>
-
-    {{> navbar}} <br>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <form id="generate-form" autocomplete="off">
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <h4>Encoding</h4>
-                    </div>
-                    <div class="appendInput">
-                        <div class="row">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                <label for="secretKey">Header</label>
-                                <select class="form-control" type="text" id="algorithm" required>
-                                    <option value="HS256" selected>HS256</option>
-                                    <option value="HS384">HS384</option>
-                                    <option value="HS512">HS512</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="form-group col-md-12 col-sm-12 col-xs-12" for="key">Payload</label>
-                            <div class="form-group col-md-5 col-sm-5 col-xs-5">
-                                <input class="form-control" type="text" id="key[]" required autocomplete="">
-                                <small><i>key</i></small>
-                            </div>
-                            <div class="form-group col-md-5 col-sm-5 col-xs-5">
-                                <input class="form-control" type="text" id="value[]" required>
-                                <small><i>value</i></small>
-                            </div>
-                            <div class="form-group col-md-2 col-sm-2 col-xs-2">
-                                <a class="btn btn-success form-control addInput">+</a>
-                                <small><i>add</i></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            <label for="secretKey">Secret Key</label>
-                            <input class="form-control" type="text" id="secretKey" required>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            <label for="expiry">Expiration Time</label>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <input class="form-control" type="number" min="1" id="expiryTime" required>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <select class="form-control" type="date" id="expiryUnit" required>
-                                        <option selected>Unit</option>
-                                        <option value="m">Minute(s)</option>
-                                        <option value="h">Hour(s)</option>
-                                        <option value="d">Day(s)</option>
-                                        <option value="y">Year(s)</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <label for="tokenTextArea">Token</label>
-                            <textarea class="form-control" rows="5" id="tokenTextArea" disabled></textarea>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-dark form-control" id="generate" type="submit">Generate</button>
-                        </div>
-                    </div>
-                </form>
+  {{>header}}
+  <body>
+    {{>navbar}}
+    <div class="container mt-5">
+      <div class="row">
+        <!-- Encoding Section -->
+        <div class="col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+              <h4 class="mb-0">Encoding</h4>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <form id="verify-form">
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <h4>Decoding</h4>
+            <div class="card-body">
+              <form id="generate-form" autocomplete="off">
+                <div class="mb-3">
+                  <label for="algorithm" class="form-label">Header</label>
+                  <select class="form-select" id="algorithm" required>
+                    <option value="HS256" selected>HS256</option>
+                    <option value="HS384">HS384</option>
+                    <option value="HS512">HS512</option>
+                  </select>
+                </div>
+                <div class="appendInput">
+                  <div class="row g-3">
+                    <div class="col-md-5">
+                      <input
+                        class="form-control"
+                        type="text"
+                        id="key[]"
+                        placeholder="Key"
+                        required
+                      />
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <label for="encodedToken">Token</label>
-                            <textarea class="form-control" rows="6" id="encodedToken" required></textarea>
-                        </div>
+                    <div class="col-md-5">
+                      <input
+                        class="form-control"
+                        type="text"
+                        id="value[]"
+                        placeholder="Value"
+                        required
+                      />
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <label for="encodedSecretKey">Secret Key</label>
-                            <input class="form-control" type="text" id="encodedSecretKey" required>
-                        </div>
+                    <div class="col-md-2">
+                      <button
+                        class="btn btn-success w-100 addInput"
+                        type="button"
+                      >+</button>
                     </div>
-                    <div class="form-row" id="res-verify"> </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-dark form-control" id="verify" type="submit">Verify</button>
-                        </div>
+                  </div>
+                </div>
+                <div class="row g-3 pt-3">
+                  <div class="col-md-6">
+                    <label for="secretKey" class="form-label">Secret Key</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="secretKey"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="expiry" class="form-label">Expiration Time</label>
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        type="number"
+                        min="1"
+                        id="expiryTime"
+                        required
+                      />
+                      <select class="form-select" id="expiryUnit" required>
+                        <option selected>Unit</option>
+                        <option value="m">Minute(s)</option>
+                        <option value="h">Hour(s)</option>
+                        <option value="d">Day(s)</option>
+                        <option value="y">Year(s)</option>
+                      </select>
                     </div>
-                </form>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <label for="tokenTextArea" class="form-label">Token</label>
+                  <textarea
+                    class="form-control"
+                    rows="5"
+                    id="tokenTextArea"
+                    disabled
+                  ></textarea>
+                </div>
+                <div class="mt-3">
+                  <button
+                    class="btn btn-dark w-100"
+                    id="generate"
+                    type="submit"
+                  >Generate</button>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
+        <!-- Decoding Section -->
+        <div class="col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+              <h4 class="mb-0">Decoding</h4>
+            </div>
+            <div class="card-body">
+              <form id="verify-form">
+                <div class="mb-3">
+                  <label for="encodedToken" class="form-label">Token</label>
+                  <textarea
+                    class="form-control"
+                    rows="6"
+                    id="encodedToken"
+                    required
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="encodedSecretKey" class="form-label">Secret Key</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="encodedSecretKey"
+                    required
+                  />
+                </div>
+                <div id="res-verify" class="mb-3"></div>
+                <div class="mt-3">
+                  <button
+                    class="btn btn-dark w-100"
+                    id="verify"
+                    type="submit"
+                  >Verify</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-</body>
-
-<input id="constants" type="text" value="{{constants}}" hidden>
-{{> scripts}}
+    <input id="constants" type="text" value="{{constants}}" hidden />
+    {{>scripts}}
+  </body>
 
 </html>
